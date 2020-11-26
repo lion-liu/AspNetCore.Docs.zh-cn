@@ -69,9 +69,9 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 * 身份验证处理程序。
 * 用于配置处理程序的该特定实例的选项。
 
-方案可用作一种机制，供用户参考相关处理程序的身份验证、挑战和禁止行为。 例如，授权策略可使用方案名称来指定应使用哪种（或哪些）身份验证方案来对用户进行身份验证。 配置身份验证时，通常是指定默认身份验证方案。 除非资源请求了特定方案，否则使用默认方案。 还可：
+方案可用作一种机制，供用户参考相关处理程序的身份验证、质询和禁止行为。 例如，授权策略可使用方案名称来指定应使用哪种（或哪些）身份验证方案来对用户进行身份验证。 配置身份验证时，通常是指定默认身份验证方案。 除非资源请求了特定方案，否则使用默认方案。 还可：
 
-* 指定其他默认方案供授权、挑战和禁止操作使用。
+* 指定其他默认方案供授权、质询和禁止操作使用。
 * 可通过[策略方案](xref:security/authentication/policyschemes)将多个方案合成一个。
 
 ### <a name="authentication-handler"></a>身份验证处理程序
@@ -86,9 +86,9 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 * 构造表示用户身份的 <xref:Microsoft.AspNetCore.Authentication.AuthenticationTicket> 对象（若身份验证成功）。
 * 返回“无结果”或“失败”（若身份验证失败）。
-* 具有用于挑战和禁止操作的方法，供用户在下述情况下访问资源时使用：
+* 具有用于质询和禁止操作的方法，供用户在下述情况下访问资源时使用：
   * 他们未获得访问授权（禁止）。
-  * 他们未经过身份验证（挑战）。
+  * 他们未经过身份验证（质询）。
 
 ### <a name="authenticate"></a>Authenticate
 
@@ -97,14 +97,14 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 * 根据 cookie 构造用户身份的 cookie 身份验证方案。
 * 对 JWT 持有者令牌进行反序列化和验证以构造用户身份的 JWT 持有者方案。
 
-### <a name="challenge"></a>挑战
+### <a name="challenge"></a>质询
 
-当未经身份验证的用户请求要求身份验证的终结点时，授权会发起身份验证挑战。 例如，当匿名用户请求受限资源或单击登录链接时，会引发身份验证挑战。 授权会使用指定的身份验证方案发起挑战；如果未指定任何方案，则使用默认方案。 请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync%2A>。 身份验证挑战示例包括：
+当未经身份验证的用户请求要求身份验证的终结点时，授权会发起身份验证质询。 例如，当匿名用户请求受限资源或单击登录链接时，会引发身份验证质询。 授权会使用指定的身份验证方案发起质询；如果未指定任何方案，则使用默认方案。 请参阅 <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.ChallengeAsync%2A>。 身份验证质询示例包括：
 
 * 将用户重定向到登录页面的 cookie 身份验证方案。
 * 返回具有 `www-authenticate: bearer` 标头的 401 结果的 JWT 持有者方案。
 
-挑战操作应告知用户要使用哪种身份验证机制来访问所请求的资源。
+质询操作应告知用户要使用哪种身份验证机制来访问所请求的资源。
 
 ### <a name="forbid"></a>禁止
 
@@ -118,10 +118,10 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 * 他们已经过身份验证。
 * 他们无权访问所请求的资源。
 
-请查看以下链接，了解挑战与禁止之间区别：
+请查看以下链接，了解质询与禁止之间区别：
 
-* [使用操作资源处理程序的挑战和禁止](xref:security/authorization/resourcebased#challenge-and-forbid-with-an-operational-resource-handler)。
-* [挑战与禁止之间的区别](xref:security/authorization/secure-data#challenge)。
+* [使用操作资源处理程序的质询和禁止](xref:security/authorization/resourcebased#challenge-and-forbid-with-an-operational-resource-handler)。
+* [质询与禁止之间的区别](xref:security/authorization/secure-data#challenge)。
 
 ## <a name="authentication-providers-per-tenant"></a>每个租户的身份验证提供程序
 
